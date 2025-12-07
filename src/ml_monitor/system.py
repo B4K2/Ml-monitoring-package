@@ -13,9 +13,18 @@ def get_system_info():
     }
 
 def get_system_metrics():
-    """Dynamic info sent every few seconds."""
-    return {
+    metrics = {
         "sys/cpu_percent": psutil.cpu_percent(),
         "sys/ram_percent": psutil.virtual_memory().percent,
-        # We will add GPU support later (requires 'pynvml')
     }
+
+    try:
+        temps = psutil.sensors_temperatures()
+        if 'coretemp' in temps:
+            # Average of all cores
+            core_temps = [entry.current for entry in temps['coretemp']]
+            metrics["sys/cpu_temp"] = sum(core_temps) / len(core_temps)
+    except Exception:
+        pass 
+
+    return metrics
