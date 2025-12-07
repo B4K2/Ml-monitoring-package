@@ -1,0 +1,20 @@
+# General
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Virtual Environment (uv)
+.venv/
+
+# Distribution / Packaging (Vital for packages)
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+
+# Local Testing
+test_script.py
