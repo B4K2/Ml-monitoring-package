@@ -1,6 +1,6 @@
 import threading
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from .client import APIClient
 from .system import get_system_info
 from .logger import BackgroundWorker # <--- Import this
@@ -47,7 +47,7 @@ def log(metrics: dict, step: int = None):
     else:
         _step += 1
 
-    timestamp = datetime.now().isoformat()
+    timestamp = datetime.now(timezone.utc).isoformat()
     
     for name, value in metrics.items():
         # Put into queue (Instant, no API call here)

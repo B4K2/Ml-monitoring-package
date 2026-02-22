@@ -1,7 +1,7 @@
 import threading
 import time
 import queue
-from datetime import datetime
+from datetime import datetime, timezone
 from .client import APIClient
 from .system import get_system_metrics
 
@@ -60,7 +60,7 @@ class BackgroundWorker(threading.Thread):
         """Reads CPU/RAM and adds to queue"""
         try:
             stats = get_system_metrics()
-            timestamp = datetime.now().isoformat()
+            timestamp = datetime.now(timezone.utc).isoformat()
             
             for name, value in stats.items():
                 self.queue.put({
